@@ -1,0 +1,180 @@
+<html>
+    <head>
+        <title> A 2 Player Ball Game</title>
+        <link rel="icon" href="website_logo.jpg" type="image/x-icon">
+
+        <style>
+            div.container { height:80%; }
+            div.container-leftpanel { float:left; width:15%;}
+            div.container-middlepanel { float: left; width: 70%; }
+            div.container-rightpanel { float:right; width:15%; } 
+        </style>
+        <title> Ball Game </title>
+        <script>
+            var canvas, canvascontext;
+            var ballx=510, speedx=10;
+            var bally=100, speedy=4;
+            var bar1y=240, bar2y=240;
+            var scoreboard1=0, scoreboard2=0;
+            var repeat;
+
+            const BAR_HEIGHT = 120;
+            
+                function onloads() {
+                    canvas = document.getElementById("can");
+                    canvascontext = canvas.getContext("2d");
+                    initialDrawing();
+                    getConfirmation();
+                }
+
+                function getConfirmation() {
+                    canvascontext.font = "20px Arial";
+                    canvascontext.fillText(" Rules and Regulations ",400,170);
+                    canvascontext.fillText(" 1. Enter the player's names in their respective fields. ", 120,240);
+                    canvascontext.fillText(" 2. The One who makes the white ball to reach white area will lose and the other get a point",120,280);
+                    canvascontext.fillText("( In other words - the One who miss the ball without stopping with their paddle will loose)",150,310);
+                    canvascontext.fillText(" 3. For Every 45 seconds, the speed of the ball increases to next level. ",120,350);
+                    canvascontext.fillText(" 4. The One who scores 5 points first is declared as the Winner ..! ",120,390);
+                    canvascontext.fillText(" We Wish ALL THE BEST to both of you ",330,460 );
+                }
+
+
+                function startGame() {
+                    repeat = setInterval(function () { justDraw(); justMove(); } , 40 );
+                    window.addEventListener('keydown',keyDowned)
+                }
+
+                function keyDowned(e) {
+                    var x = e.keyCode;
+                    if(x == 38) { if(bar2y>0) { bar2y -= 10; }}
+                    else if(x == 40) { if(bar2y<480) {bar2y += 10; }}
+                    if(x == 87) { if(bar1y>0) { bar1y -= 10; }}
+                    else if(x == 83) { if(bar1y<480) {bar1y += 10; }}
+                }
+
+                function justDraw() {
+                    
+                    canvascontext.fillStyle = "black";
+                    canvascontext.fillRect(0,0,canvas.width,canvas.height);
+                    drawBar2();
+                    drawBar1();
+                    drawBall();                      
+                }
+
+                function drawBall() {
+                    canvascontext.fillStyle = "white";
+                    canvascontext.beginPath();
+                    canvascontext.arc(ballx,bally,9,0,360,false);
+                    canvascontext.fill();
+                }
+
+                function drawBar1() {
+                    canvascontext.fillStyle = "blue";
+                    canvascontext.fillRect(0,bar1y,15,120);   
+                }
+
+                function drawBar2() {
+                    canvascontext.fillStyle = "blue"
+                    canvascontext.fillRect(1035,bar2y,15,120);   
+                }
+
+                function justMove() {
+                    ballx += speedx;
+                    bally += speedy;
+                    if( (ballx<15 && (bally>bar1y && bally<bar1y+120)) || (ballx > 1035 && (bally>bar2y && bally<bar2y+120))  ) { speedx = -speedx; }
+                    else if(bally > canvas.height-4 || bally < 2 ) { speedy = -speedy; }
+                    else if(ballx<0 || ballx>1050) { 
+                        if(ballx<0) { 
+                            scoreboard2 += 1; 
+                            document.getElementById("score2").innerText = scoreboard2;
+                        }
+                        else {
+                            scoreboard1 += 1; 
+                            document.getElementById("score1").innerText = scoreboard1;
+                        }
+                        if( scoreboard1 == 5 || scoreboard2 == 5 ) {
+                            endGame(scoreboard1-scoreboard2);
+                        }
+                        resetGame();
+
+                    }
+                }
+
+                function endGame(diff) {
+                    clearInterval(repeat);
+                    var winner 
+                    if(diff < 0) { winner = document.getElementById("l2").innerText; }
+                    else { winner = document.getElementById("l1").innerText; }
+                    canvascontext.fillText("Many Congratulations to " + winner,340,250); 
+                    canvascontext.fillText(" You are the Winner ....! ",380,290 );
+                    canvascontext.fillText(" Reload the page to start a Fresh Game ",320,550);
+                 
+                }
+
+                function resetGame() {
+                    ballx = 500;
+                    bally = 300;
+                    speedx = -speedx;
+                }
+
+                function initialDrawing() {
+                    canvascontext.fillStyle = "black";
+                    canvascontext.fillRect(0,0,1050,600);
+                    canvascontext.fillStyle = "blue";
+                    canvascontext.fillRect(0,240,15,120);   
+                    canvascontext.fillStyle = "blue";
+                    canvascontext.fillRect(1035,240,15,120);   
+                    canvascontext.fillStyle = "white"
+                    canvascontext.beginPath();
+                    canvascontext.arc(510,100,9,0,360,false);
+                    canvascontext.fill();                
+                }
+
+                function updateName(lab, tex, but ) {
+                    document.getElementById(lab).innerText = document.getElementById(tex).value
+                    document.getElementById(tex).type = "hidden"
+                    document.getElementById(but).style.display = "none"
+                
+                }
+        </script>
+    </head>
+
+    <body onload = "onloads()">
+        <center>
+            <h3> A Two Player Ball Game </h3>
+        </center>
+        <div class="container">
+            <div class="container-leftpanel" >
+            <center>
+                <h3> <label id="l1">Player 1</label>  </h3> 
+                <input type="text" id="player1" placeholder="Enter player 1 name" size=15> 
+                <button onclick="updateName('l1', 'player1', 'b1' )" id="b1" type="button">Enter</button>
+
+                <br><br><br><br>
+                <label style="font-size: 150px;" id="score1">0</label>
+            </center>
+            </div>
+            <div class = "container-middlepanel">
+            <canvas id="can" width="1050" height="600" style="border-top:5px solid blue;border-bottom: 5px solid blue;">    
+            </canvas>
+            <h4 style="float:left;"> For Left Side Player - use W & S  </h4>
+            <h4 style="float:right; padding-right: 20px;"> For Right Side Player - use Arrow Keys  </h4>
+            <br><br>
+            <center> <button onclick="startGame()"> START GAME </button></center>
+            </div>
+            <div class="container-rightpanel">
+            <center>
+                <h3> <label id="l2">Player 2</label>  </h3> 
+                <input type="text" id="player2" placeholder="Enter player 2 name" size=15> 
+                <button onclick="updateName('l2', 'player2', 'b2' )" id="b2" type="button">Enter</button>
+                <br><br><br><br>
+                <label style="font-size: 150px;" id="score2">0</label>
+            </center>
+
+            </div>
+        </div>
+        <br>
+        </center>
+            
+    </body>
+</html>

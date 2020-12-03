@@ -1,0 +1,49 @@
+<html>
+    <head>
+        <link rel="icon" href="website_logo.jpg" type="image/x-icon">
+        <title>Certificates of Sathyamshu</title> 
+
+        <style>
+            
+            .names { cursor: pointer; background-color: transparent; border: transparent; color:black}
+            .container { ; }
+            .container-left { float:left; width:18%; height:100%; padding: 0px;}
+            .container-middle {float:left; width: 64%; height:100%; padding: 0px;}
+            .container-right {float:right; width: 18%; height:100%; }
+        </style>
+
+        <script>
+            function onload() { 
+                onButtonClick("some addresss");
+            }
+
+            var addressses = [ "codevitacert.png", "pixelcert.jpg", "elixircert.jpg", "moccert.jpg", "suprajacert.jpg" ];
+
+            function onButtonClick(idx) {
+                document.getElementById("imageplace").src = addressses[idx] ;
+            }
+            
+        </script>
+    </head>
+
+    <body style="background-color:white;">
+        <div class="container">
+            <div class="container-left">
+                <img src = "transparent1.png" width=100%; height=100%;> 
+            </div>
+            <div class="container-middle">
+        <center><h3 style="color:black"> Certificates of Sathyamshu ... !</h3>
+        <button class="names" onclick="onButtonClick(0)"  > <u> Codevita 8</u></button>
+        <button class="names" onclick="onButtonClick(1)"  > <u> PIXLR 2k19 </u></button>
+        <button class="names" onclick="onButtonClick(2)"  > <u> ELIXIR 2k20 </u></button>
+        <button class="names" onclick="onButtonClick(3)"  > <u> Master Orator Championship 2018</u></button>
+        <button class="names" onclick="onButtonClick(4)"  > <u> Supraja Technologies 2018 </u></button>
+        <br><br><br>    
+        <img id="imageplace" src="website_logo.jpg" width="960" height="600">
+        </center>
+    </div>
+    <div class="container-right">
+        <img src = "transparent2.png" width=100%; height=100%;> 
+    </div>
+    </body>
+</html>

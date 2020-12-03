@@ -1,0 +1,89 @@
+<html>
+    <head>
+        <title> A Maze Game</title>
+        <link rel="icon" href="website_logo.jpg" type="image/x-icon">
+
+        <style>
+
+
+        </style>
+
+
+        <script>
+            var canvas, context;
+            var tofill;
+            var ballx=50, bally=650;
+            function onloads() {
+
+                drawEverything();
+                window.addEventListener('keydown', downed );
+
+            }
+
+            function drawEverything() {
+                drawBackground(); 
+                tofill = [  [100,100,600,100], [700,100,900,100],
+                            [100,200,700,200],
+                            [100,300,200,300], [400,300,600,300], 
+                            [200,400,300,400], [600,400,700,400], [800,400,900,400],
+                            [300,500,400,500], [500,500,800,500],
+                            [100,600,200,600], [300,600,600,600],
+
+                            [100,300,100,600],
+                            [200,400,200,600],
+                            [300,200,300,400], [300,500,300,600],
+                            [400,100,400,200], [400,400,400,500],
+                            [500,0,500,100], [500,400,500,600],
+                            [600,300,600,400],
+                            [700,200,700,400], [700,500,700,700],
+                            [800,200,800,400], [800,500,800,600]    
+                         ];
+                context.lineWidth = 5;
+                context.strokeStyle ="blue";
+                for(var i=0; i<tofill.length; i++) {
+                    drawIt(tofill[i]);
+                }
+                context.stroke();
+                drawBall();
+
+
+            }
+
+            function downed(e) {
+                var x = e.keyCode;
+                if(x == 37) { ballx -= 5; }
+                else if(x == 38) { bally -= 5; }
+                else if(x == 39) { ballx += 5; }
+                else if(x == 40) { bally += 5; }
+                drawEverything();
+            }
+
+            function drawBall() {
+                context.fillStyle = "white";
+                context.beginPath();
+                context.arc(ballx,bally,50,0,360,false);
+                context.fill();
+            }
+
+            function drawIt(xy) {
+                context.moveTo(xy[0], xy[1]);
+                context.lineTo(xy[2], xy[3]);
+                context.stroke();
+            }
+
+            function drawBackground() {
+                canvas = document.getElementById("can");
+                context = canvas.getContext("2d");
+                context.fillStyle = "black";
+                context.fillRect(0,0,900,700);
+            }
+
+
+        </script>
+    </head>
+
+    <body onload = onloads()>
+        <center>
+            <canvas id="can" width="900" height="700" style="border:5px solid blue;border-bottom: 5px solid blue;"></canvas>
+        </center>   
+    </body>

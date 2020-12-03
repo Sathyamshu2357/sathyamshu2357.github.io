@@ -1,0 +1,228 @@
+<html>
+	<head>
+		<title> Sudoku Solver </title>
+
+		<style> input{ length:5px; width:20px } </style>
+
+		<script>
+
+			function getBoxes(s) {
+				box = [] 
+				box.push( [s[0][0], s[0][1], s[0][2], s[1][0], s[1][1], s[1][2], s[2][0], s[2][1], s[2][2] ]);
+				box.push( [s[0][3], s[0][4], s[0][5], s[1][3], s[1][4], s[1][5], s[2][3], s[2][4], s[2][5] ]);
+				box.push( [s[0][6], s[0][7], s[0][8], s[1][6], s[1][7], s[1][8], s[2][6], s[2][7], s[2][8] ]);
+				box.push( [s[3][0], s[3][1], s[3][2], s[4][0], s[4][1], s[4][2], s[5][0], s[5][1], s[5][2] ]);
+				box.push( [s[3][3], s[3][4], s[3][5], s[4][3], s[4][4], s[4][5], s[5][3], s[5][4], s[5][5] ]);
+				box.push( [s[3][6], s[3][7], s[3][8], s[4][6], s[4][7], s[4][8], s[5][6], s[5][7], s[5][8] ]);
+				box.push( [s[6][0], s[6][1], s[6][2], s[7][0], s[7][1], s[7][2], s[8][0], s[8][1], s[8][2] ]);
+				box.push( [s[6][3], s[6][4], s[6][5], s[7][3], s[7][4], s[7][5], s[8][3], s[8][4], s[8][5] ]);
+				box.push( [s[6][6], s[6][7], s[6][8], s[7][6], s[7][7], s[7][8], s[8][6], s[8][7], s[8][8] ]);
+				return box;
+			}
+
+			function getYXSheet(sheet) {
+				var yx = [] 
+				for(var i=0; i<9; i++) {
+					temp = []
+					for(var j=0; j<9; j++) {
+						temp.push(sheet[j][i]);
+					}
+					yx.push(temp);
+				}
+				return yx;
+			}
+
+			function readSheet() {
+				var sheet = []
+				idx = 1
+				for(var i=0; i<9; i++) {	
+                    			temp = []
+                    			for(var j =0; j<9; j++) {
+						temp.push(document.getElementById(idx++).value);
+					}
+                    			sheet.push(temp);
+				}
+                		return sheet;
+			}
+
+			function isSafe(sheet) {
+				var yx = getYXSheet(sheet);
+				var box = getBoxes(sheet);				
+				for( var i=0; i<9; i++) {
+					for(var j=1; j<=9; j++) {
+						if( ( sheet[i].indexOf(j) != sheet[i].lastIndexOf(j) )
+							|| ( yx[i].indexOf(j) != yx[i].lastIndexOf(j) )
+							|| (box[i].indexOf(j) != box[i].lastIndexOf(j) ) ) {
+							return false;
+						}
+					}	
+				}							 	
+				
+			}
+
+			function solveSudoku(sheet, i,j) {
+				if( i==8 && j==9 ) {
+					if( isSafe(sheet) ) {
+						console.log(sheet);
+					}
+				return false
+				}
+		
+				if(j==9) {
+					i++;
+					j = 0;
+				}
+
+				if( sheet[i][j] == 0 ) {
+					return solveSudoku(sheet, i,j+1);
+				}
+	
+				for(var num=1; num<=9; num++) {
+					sheet[i][j] = num;
+					if( solveSudoku(sheet,i,j+1) ) { return true; }
+					sheet[i][j] = 0;
+				}
+				return false;
+			}	 
+
+
+			function solvePuzzle() {				
+				var sheet = readSheet();
+				if( solveSudoku(sheet,0,0) != true ) {
+					return "No solutions Exists";
+				}	
+			}
+
+
+		</script>
+
+
+
+
+	</head>
+
+	
+	<body>
+	<center>
+		<h3>Welcome ! I am a Sudoku Solver bot ..!</h3>
+
+		<p style="textsize:20px:"> I am here to solve ur sudoku puzzles ...Enter the Sudoku puzzle below and give some seconds to solve it and give you..</p>
+
+		<form>
+		<table>
+			<tr>
+				<td><input id=1 type="text"></td>
+				<td><input id=2 type="text"></td>
+				<td><input id=3 type="text"></td>
+				<td><input id=4 type="text"></td>
+				<td><input id=5 type="text"></td>
+				<td><input id=6 type="text"></td>
+				<td><input id=7 type="text"></td>
+				<td><input id=8 type="text"></td>
+				<td><input id=9 type="text"></td>
+
+			</tr>
+			<tr>
+				<td><input id=10 type="text"></td>
+				<td><input id=11 type="text"></td>
+				<td><input id=12 type="text"></td>
+				<td><input id=13 type="text"></td>
+				<td><input id=14 type="text"></td>
+				<td><input id=15 type="text"></td>
+				<td><input id=16 type="text"></td>
+				<td><input id=17 type="text"></td>
+				<td><input id=18 type="text"></td>
+
+			</tr>
+			<tr>
+				<td><input id=19 type="text"></td>
+				<td><input id=20 type="text"></td>
+				<td><input id=21 type="text"></td>
+				<td><input id=22 type="text"></td>
+				<td><input id=23 type="text"></td>
+				<td><input id=24 type="text"></td>
+				<td><input id=25 type="text"></td>
+				<td><input id=26 type="text"></td>
+				<td><input id=27 type="text"></td>
+
+			</tr>
+			<tr>
+				<td><input id=28 type="text"></td>
+				<td><input id=29 type="text"></td>
+				<td><input id=30 type="text"></td>
+				<td><input id=31 type="text"></td>
+				<td><input id=32 type="text"></td>
+				<td><input id=33 type="text"></td>
+				<td><input id=34 type="text"></td>
+				<td><input id=35 type="text"></td>
+				<td><input id=36 type="text"></td>
+
+			</tr>
+			<tr>
+				<td><input id=37 type="text"></td>
+				<td><input id=38 type="text"></td>
+				<td><input id=39 type="text"></td>
+				<td><input id=40 type="text"></td>
+				<td><input id=41 type="text"></td>
+				<td><input id=42 type="text"></td>
+				<td><input id=43 type="text"></td>
+				<td><input id=44 type="text"></td>
+				<td><input id=45 type="text"></td>
+
+			</tr>
+			<tr>
+				<td><input id=46 type="text"></td>
+				<td><input id=47 type="text"></td>
+				<td><input id=48 type="text"></td>
+				<td><input id=49 type="text"></td>
+				<td><input id=50 type="text"></td>
+				<td><input id=51 type="text"></td>
+				<td><input id=52 type="text"></td>
+				<td><input id=53 type="text"></td>
+				<td><input id=54 type="text"></td>
+
+			</tr>
+			<tr>
+				<td><input id=55 type="text"></td>
+				<td><input id=56 type="text"></td>
+				<td><input id=57 type="text"></td>
+				<td><input id=58 type="text"></td>
+				<td><input id=59 type="text"></td>
+				<td><input id=60 type="text"></td>
+				<td><input id=61 type="text"></td>
+				<td><input id=62 type="text"></td>
+				<td><input id=63 type="text"></td>
+
+			</tr>
+			<tr>
+				<td><input id=64 type="text"></td>
+				<td><input id=65 type="text"></td>
+				<td><input id=66 type="text"></td>
+				<td><input id=67 type="text"></td>
+				<td><input id=68 type="text"></td>
+				<td><input id=69 type="text"></td>
+				<td><input id=70 type="text"></td>
+				<td><input id=71 type="text"></td>
+				<td><input id=72 type="text"></td>
+
+			</tr>
+			<tr>
+				<td><input id=73 type="text"></td>
+				<td><input id=74 type="text"></td>
+				<td><input id=75 type="text"></td>
+				<td><input id=76 type="text"></td>
+				<td><input id=77 type="text"></td>
+				<td><input id=78 type="text"></td>
+				<td><input id=79 type="text"></td>
+				<td><input id=80 type="text"></td>
+				<td><input id=81 type="text"></td>
+
+			</tr>
+		<table>
+
+		
+		<button onclick="solvePuzzle()">Solve Puzzle</button>
+		</form>
+	</center
+	</body>
+</html>

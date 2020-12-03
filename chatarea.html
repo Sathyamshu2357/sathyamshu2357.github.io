@@ -1,0 +1,44 @@
+<html>
+    <head>
+        <link rel="icon" href="website_logo.jpg" type="image/x-icon">
+        <title> Sathyamshu's Chat Bot </title>
+    
+        <style>
+            .userprompt { background-color: black; color:blue; font-size: 20px; }
+            .usertext { background-color: black; color:white;  }
+            .lisatextlabel { background-color: black; color: white; padding: 0px; font-size: 20px;}
+            .usertextlabel { }
+            #cursor {   color:white; font-size: 20px;}
+
+
+        </style>
+    
+        <script>
+            var flag = true;
+            var blinker = setInterval( function() { 
+                if(flag) {
+                    document.getElementById("cursor").style.opacity = 0;
+                    flag = false;
+                } else {
+                    document.getElementById("cursor").style.opacity = 1;
+                    flag = true;
+                }
+                },500);
+
+
+        </script>
+
+    </head>
+
+    <body style="background-color:black;">
+        <label class="lisatextlabel"> Welcome ...! I am Lisa, Sathyamshu's assitant bot </label> <br><br>
+        <label class="lisatextlabel"> May I know your good Name please ... </label> <br><br>
+        <label class="userprompt"> @Anonymous User $</label>
+        <span id="cursor"> || </span>
+        
+
+    </body>
+
+
+
+</html>
