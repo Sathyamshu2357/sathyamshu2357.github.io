@@ -1,7 +1,7 @@
 <html>
     <head>
         <title> A Maze Game</title>
-        <link rel="icon" href="website_logo.jpg" type="image/x-icon">
+        <link rel="icon" href="../assets/website_logo.jpg" type="image/x-icon">
 
         <style>
 
@@ -17,10 +17,11 @@
 
                 drawEverything();
                 window.addEventListener('keydown', downed );
-
             }
 
             function drawEverything() {
+                document.cookie = "name=amshu";
+
                 drawBackground(); 
                 tofill = [  [100,100,600,100], [700,100,900,100],
                             [100,200,700,200],

@@ -15,6 +15,7 @@
     
         <script>
             var flag = true;
+            
             var blinker = setInterval( function() { 
                 if(flag) {
                     document.getElementById("cursor").style.opacity = 0;
@@ -30,12 +31,13 @@
 
     </head>
 
-    <body style="background-color:black;">
+    <body style="background-color:black;" onload="onLoad()">
         <label class="lisatextlabel"> Welcome ...! I am Lisa, Sathyamshu's assitant bot </label> <br><br>
         <label class="lisatextlabel"> May I know your good Name please ... </label> <br><br>
         <label class="lisatextlabel"> Sorry Please, I am still under Development. Hope I'll get a chance to chat with You in soon . </label> <br><br>
         <label class="userprompt"> @Anonymous User $</label>
         <span id="cursor"> || </span>
+
         
 
     </body>
